@@ -1,0 +1,34 @@
+name: Deploy Theme to Hostinger
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'theme/**'
+
+jobs:
+  deploy:
+    name: FTP Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install lftp
+        run: sudo apt-get install -y lftp
+
+      - name: Deploy theme via lftp
+        run: |
+          lftp -c "
+          set ftp:ssl-allow no;
+          set net:timeout 60;
+          set net:max-retries 3;
+          set net:reconnect-interval-base 5;
+          open -u '${{ secrets.FTP_USER }}','${{ secrets.FTP_PASS }}' ${{ secrets.FTP_HOST }};
+          mirror --reverse --verbose --no-perms --delete \
+            ./theme/standingpouch/ \
+            /wp-content/themes/standingpouch/;
+          bye;
+          "
