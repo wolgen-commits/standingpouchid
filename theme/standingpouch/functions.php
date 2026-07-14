@@ -26,6 +26,13 @@ add_action('wp_enqueue_scripts', function() {
 
   wp_enqueue_script('sp-main',      get_template_directory_uri() . '/assets/js/main.js',      [], $v, true);
   wp_enqueue_script('sp-whatsapp',  get_template_directory_uri() . '/assets/js/whatsapp.js',  [], $v, true);
+
+  wp_localize_script('sp-whatsapp', 'SP_CONFIG', [
+    'waNumbers' => array_filter([
+      get_theme_mod('sp_wa_1', ''),
+      get_theme_mod('sp_wa_2', ''),
+    ]),
+  ]);
 });
 
 add_action('customize_register', function($wp_customize) {

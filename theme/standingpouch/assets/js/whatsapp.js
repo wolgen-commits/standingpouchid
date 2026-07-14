@@ -1,10 +1,9 @@
 (function() {
   'use strict';
 
-  var WA_NUMBERS = [
-    '6281234567890', /* CS 1 — ganti dengan nomor asli */
-    '6281234567891', /* CS 2 — ganti dengan nomor asli */
-  ];
+  var WA_NUMBERS = (window.SP_CONFIG && SP_CONFIG.waNumbers && Object.keys(SP_CONFIG.waNumbers).length)
+    ? Object.values(SP_CONFIG.waNumbers)
+    : ['6281234567890', '6281234567891'];
 
   var KEY = 'sp_wa_index';
 
