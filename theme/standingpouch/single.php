@@ -32,9 +32,9 @@
       </div>
 
       <div style="margin-top:48px;padding-top:28px;border-top:1px solid var(--color-border);display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-        <a href="<?php echo esc_url( home_url('/panduan/') ); ?>" class="btn btn--sm btn--secondary">← Kembali ke Panduan</a>
+        <a href="<?php echo esc_url( home_url('/panduan/') ); ?>" class="btn btn--sm btn--secondary"><?php echo esc_html( get_theme_mod( 'sp_cta_kembali', '← Kembali ke Panduan' ) ); ?></a>
         <a href="https://wa.me/<?php echo esc_html( get_theme_mod('sp_wa_1', '6281234567890') ); ?>?text=Halo%2C+saya+ingin+konsultasi+custom+standing+pouch"
-           class="btn btn--sm btn--primary" target="_blank" rel="noopener">Konsultasi via WA →</a>
+           class="btn btn--sm btn--primary" target="_blank" rel="noopener"><?php echo esc_html( get_theme_mod( 'sp_cta_tombol', 'Konsultasi via WA →' ) ); ?></a>
       </div>
 
     </article>

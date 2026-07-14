@@ -19,8 +19,8 @@ $articles = new WP_Query([
 <div class="sp-page-header">
   <div class="page-wrap">
     <div class="sp-page-header__eyebrow">Panduan</div>
-    <h1 class="sp-page-header__title">Panduan & Tips Kemasan</h1>
-    <p class="sp-page-header__desc">Referensi lengkap seputar standing pouch, bahan kemasan, dan cara custom kemasan teh.</p>
+    <h1 class="sp-page-header__title"><?php echo esc_html( get_theme_mod( 'sp_panduan_judul', 'Panduan & Tips Kemasan' ) ); ?></h1>
+    <p class="sp-page-header__desc"><?php echo esc_html( get_theme_mod( 'sp_panduan_sub', 'Referensi lengkap seputar standing pouch, bahan kemasan, dan cara custom kemasan teh.' ) ); ?></p>
   </div>
 </div>
 

@@ -19,7 +19,7 @@
         <span class="footer-logo-dot"></span>
         standingpouch
       </a>
-      <p class="footer-tagline">Platform custom standing pouch berbasis cetak offset. Melayani UMKM hingga brand menengah dengan MOQ rendah mulai 100 pcs.</p>
+      <p class="footer-tagline"><?php echo esc_html( get_theme_mod( 'sp_footer_tagline', 'Platform custom standing pouch berbasis cetak offset. Melayani UMKM hingga brand menengah dengan MOQ rendah mulai 100 pcs.' ) ); ?></p>
       <div class="footer-socials">
         <a href="<?php echo esc_url( get_theme_mod('sp_instagram', 'https://www.instagram.com/standingpouch.id') ); ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram">📷</a>
         <a href="https://wa.me/<?php echo esc_html( get_theme_mod('sp_wa_1', '6281234567890') ); ?>" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">💬</a>
@@ -59,7 +59,7 @@
 
   <div class="footer-bottom">
     <div class="footer-bottom-inner page-wrap">
-      <p class="footer-copy">© <?php echo date('Y'); ?> StandingPouch.id · Hak cipta dilindungi.</p>
+      <p class="footer-copy">© <?php echo date('Y'); ?> <?php echo esc_html( get_theme_mod( 'sp_nama_perusahaan', 'StandingPouch.id' ) ); ?> · Hak cipta dilindungi.</p>
       <div class="footer-parent">
         Bagian dari
         <span class="footer-parent-badge">Magenta Indopack Group</span>
