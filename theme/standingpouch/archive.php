@@ -1,36 +1,29 @@
-<?php
-/**
- * Template Name: Panduan
- */
-get_header();
-
-$paged = get_query_var('paged') ?: 1;
-
-$articles = new WP_Query([
-  'post_type'      => 'post',
-  'post_status'    => 'publish',
-  'posts_per_page' => 12,
-  'paged'          => $paged,
-  'orderby'        => 'date',
-  'order'          => 'DESC',
-]);
-?>
+<?php get_header(); ?>
 
 <div class="sp-page-header">
   <div class="page-wrap">
-    <div class="sp-page-header__eyebrow">Panduan</div>
-    <h1 class="sp-page-header__title">Panduan & Tips Kemasan</h1>
-    <p class="sp-page-header__desc">Referensi lengkap seputar standing pouch, bahan kemasan, dan cara custom kemasan teh.</p>
+    <div class="sp-page-header__eyebrow">
+      <?php
+      if ( is_category() )     echo 'Kategori';
+      elseif ( is_tag() )      echo 'Tag';
+      elseif ( is_author() )   echo 'Penulis';
+      else                     echo 'Arsip';
+      ?>
+    </div>
+    <h1 class="sp-page-header__title"><?php the_archive_title(); ?></h1>
+    <?php if ( get_the_archive_description() ) : ?>
+      <p class="sp-page-header__desc"><?php echo get_the_archive_description(); ?></p>
+    <?php endif; ?>
   </div>
 </div>
 
 <main id="main-content" style="padding-block:56px 80px">
   <div class="page-wrap">
 
-    <?php if ( $articles->have_posts() ) : ?>
+    <?php if ( have_posts() ) : ?>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px">
-        <?php while ( $articles->have_posts() ) : $articles->the_post(); ?>
+        <?php while ( have_posts() ) : the_post(); ?>
           <a href="<?php the_permalink(); ?>" class="card-article" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
             <div class="card-article__img">
               <?php if ( has_post_thumbnail() ) : ?>
@@ -58,31 +51,28 @@ $articles = new WP_Query([
         <?php endwhile; ?>
       </div>
 
-      <?php
-      $big = 999999;
-      $pagination = paginate_links([
-        'base'    => str_replace( $big, '%#%', esc_url( get_pagenum_link($big) ) ),
-        'format'  => '?paged=%#%',
-        'current' => $paged,
-        'total'   => $articles->max_num_pages,
-        'type'    => 'array',
-        'prev_text' => '← Sebelumnya',
-        'next_text' => 'Berikutnya →',
-      ]);
-
-      if ( $pagination ) :
-      ?>
-        <div style="margin-top:48px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-          <?php foreach ( $pagination as $link ) : ?>
-            <span style="font-size:14px"><?php echo $link; ?></span>
-          <?php endforeach; ?>
-        </div>
-      <?php endif; ?>
-
-      <?php wp_reset_postdata(); ?>
+      <div style="margin-top:48px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        <?php
+        $big = 999999;
+        $pagination = paginate_links([
+          'base'      => str_replace( $big, '%#%', esc_url( get_pagenum_link($big) ) ),
+          'format'    => '?paged=%#%',
+          'current'   => max(1, get_query_var('paged')),
+          'total'     => $GLOBALS['wp_query']->max_num_pages,
+          'type'      => 'array',
+          'prev_text' => '← Sebelumnya',
+          'next_text' => 'Berikutnya →',
+        ]);
+        if ( $pagination ) {
+          foreach ( $pagination as $link ) {
+            echo '<span style="font-size:14px">' . $link . '</span>';
+          }
+        }
+        ?>
+      </div>
 
     <?php else : ?>
-      <p style="text-align:center;color:var(--color-text-light);padding:48px 0">Belum ada artikel. Tambahkan lewat WP Admin → Tulisan → Tambah Baru.</p>
+      <p style="text-align:center;color:var(--color-text-light);padding:48px 0">Belum ada artikel di kategori ini.</p>
     <?php endif; ?>
 
   </div>
